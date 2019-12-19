@@ -64,7 +64,7 @@ summary(titanic$Age) # There is 177 NA's in Age
 titanic$Age[is.na(titanic$Age)] <- 
   round(mean(titanic$Age, na.rm = TRUE))
 
-titanic$Sex.num = if_else(titanic$Sex == "male"
+titanic$Sex_num = if_else(titanic$Sex == "male"
                                , 1
                                , 0)
 
@@ -85,7 +85,7 @@ titanic$Embarked = as.factor(titanic$Embarked)
 summary(titanic)
 df <- 
   titanic %>% 
-  select(Survived, Pclass, Sex.num, Age, SibSp, Parch, Fare)
+  select(Survived, Pclass, Sex_num, Age, SibSp, Parch, Fare)
 
 #balance?
 df %>%
@@ -106,10 +106,10 @@ test <- df[-trainIndex,]
 
 X_train <- 
   train %>% 
-  select(Pclass, Sex.num, Age, SibSp, Parch, Fare)
+  select(Pclass, Sex_num, Age, SibSp, Parch, Fare)
 X_test <- 
   test %>% 
-  select(Pclass, Sex.num, Age, SibSp, Parch, Fare)
+  select(Pclass, Sex_num, Age, SibSp, Parch, Fare)
 y_train <- 
   train %>% 
   select(Survived)
