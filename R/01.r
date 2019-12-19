@@ -13,11 +13,13 @@ install.packages("titanic")
 install.packages("tidyverse")
 install.packages("psych")
 install.packages("PerformanceAnalytics")
+install.packages("caret")
 
 # load necessary packages ------
 library(titanic)
 library(tidyverse)
 library(psych)
+library(caret)
 # library(stringi)
 # load necessary data ---------
 titanic <-
@@ -93,6 +95,33 @@ pairs.panels(df[,],
              ellipses=FALSE,
              pch = 19, 
              hist.col="blue")
+
+#################################
+# Split train and test data ------
+set.seed(2019)
+trainIndex <- createDataPartition(df$Survived, p=0.75, list = FALSE)
+train <- df[trainIndex,]
+test <- df[-trainIndex,]
+
+
+X_train <- 
+  train %>% 
+  select(Pclass, Sex.num, Age, SibSp, Parch, Fare)
+X_test <- 
+  test %>% 
+  select(Pclass, Sex.num, Age, SibSp, Parch, Fare)
+y_train <- 
+  train %>% 
+  select(Survived)
+y_test <- 
+  test %>% 
+  select(Survived)
+#################################
+
+#################################
+
+
+
 
 # Analysis & Visualisations ------
 # plot survival Rate by Gender ------
