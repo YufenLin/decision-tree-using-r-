@@ -14,12 +14,13 @@ install.packages("tidyverse")
 install.packages("psych")
 install.packages("PerformanceAnalytics")
 install.packages("caret")
-
+install.packages("ISLR")
 # load necessary packages ------
 library(titanic)
 library(tidyverse)
 library(psych)
 library(caret)
+library(ISLR)
 # library(stringi)
 # load necessary data ---------
 titanic <-
@@ -85,7 +86,7 @@ titanic$Embarked = as.factor(titanic$Embarked)
 summary(titanic)
 df <- 
   titanic %>% 
-  select(Survived, Pclass, Sex_num, Age, SibSp, Parch, Fare)
+  select(Survived, Pclass, Age, SibSp, Parch, Fare)
 
 #balance?
 df %>%
@@ -102,24 +103,28 @@ set.seed(2019)
 trainIndex <- createDataPartition(df$Survived, p=0.75, list = FALSE)
 train <- df[trainIndex,]
 test <- df[-trainIndex,]
-
-
-X_train <- 
-  train %>% 
-  select(Pclass, Sex_num, Age, SibSp, Parch, Fare)
-X_test <- 
-  test %>% 
-  select(Pclass, Sex_num, Age, SibSp, Parch, Fare)
-y_train <- 
-  train %>% 
-  select(Survived)
-y_test <- 
-  test %>% 
-  select(Survived)
+# 
+# 
+# X_train <- 
+#   train %>% 
+#   select(Pclass, Sex_num, Age, SibSp, Parch, Fare)
+# X_test <- 
+#   test %>% 
+#   select(Pclass, Sex_num, Age, SibSp, Parch, Fare)
+# y_train <- 
+#   train %>% 
+#   select(Survived)
+# y_test <- 
+#   test %>% 
+#   select(Survived)
 #################################
 
 #################################
+# Logistic Regression
+model <- glm(Survived~Pclass+Age+SibSp+Parch+Fare ,family=binomial(link='logit'),data=train)
+summary(model)
 
+#################################
 
 
 
